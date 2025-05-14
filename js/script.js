@@ -3,22 +3,26 @@ document.addEventListener('DOMContentLoaded', function() {
     const video = document.getElementById('background-video');
     const playButton = document.getElementById('play-button');
     const content = document.getElementById('content');
+    const logo = document.getElementById('logo');
 
-    playButton.addEventListener('click', function() {
-        // Lancer la vidéo
+
+    logo.addEventListener('click', function()
+    {
+
+        logo.classList.add('logo-growing');
+        video.play()
+
+    });
+
+    playButton.addEventListener('click', function()
+    {
+
         video.play();
-
-        // Passer la vidéo en arrière-plan
         videoContainer.classList.add('background');
-
-        // Afficher le contenu principal
         setTimeout(function() {
             content.classList.add('visible');
         }, 500);
-
-        // Masquer le bouton
         playButton.style.display = 'none';
+
     });
 });
-
-
