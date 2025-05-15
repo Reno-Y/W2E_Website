@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const header = document.querySelector('header');
     const menuIcon = document.getElementById('menu-icon');
     const menuIconBlue = document.getElementById('menu-icon-blue');
+    const footer = document.querySelector('footer');
+
 
     video.pause();
     video.loop = true;
@@ -54,10 +56,36 @@ document.addEventListener('DOMContentLoaded', function() {
                 logo.style.display = 'none';
                 content.classList.add('visible');
                 document.body.classList.add('scrollable');
+                menuIcon.style.display = 'block';
             }, 950);
-            menuIcon.style.display = 'block';
+
         });
     } else {
         console.error('Logo element not found!');
     }
+
+
+    // Fonction qui vérifie si on est en bas de page
+    function checkScroll() {
+        // On calcule la position actuelle du scroll
+        let scrollPosition = window.innerHeight + window.scrollY;
+        // On calcule la hauteur totale de la page
+        let bodyHeight = document.body.offsetHeight;
+
+        // Si on est proche du bas (dans les 50 pixels du bas)
+        if (bodyHeight - scrollPosition < 50) {
+            footer.style.display = 'block';
+        } else {
+            footer.style.display = 'none';
+        }
+    }
+
+    // Masquer le footer initialement
+    footer.style.display = 'none';
+
+    // Écouter l'événement de défilement
+    window.addEventListener('scroll', checkScroll);
+
+    // Aussi vérifier lors du redimensionnement de la fenêtre
+    window.addEventListener('resize', checkScroll);
 });
