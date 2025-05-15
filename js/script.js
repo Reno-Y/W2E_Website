@@ -1,28 +1,63 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const videoContainer = document.getElementById('video-container');
     const video = document.getElementById('background-video');
-    const playButton = document.getElementById('play-button');
     const content = document.getElementById('content');
     const logo = document.getElementById('logo');
+    const header = document.querySelector('header');
+    const menuIcon = document.getElementById('menu-icon');
+    const menuIconBlue = document.getElementById('menu-icon-blue');
 
+    video.pause();
+    video.loop = true;
 
-    logo.addEventListener('click', function()
-    {
+    // Gestion de l'affichage du menu au survol
+    if (menuIcon && menuIconBlue) {
+        // Afficher le menu et l'icône bleue au survol de l'icône blanche
+        menuIcon.addEventListener('mouseenter', function() {
+            header.classList.add('visible');
+            menuIcon.style.display = 'none';
+            menuIconBlue.style.display = 'block';
+        });
 
-        logo.classList.add('logo-growing');
-        video.play()
+        // Lorsqu'on quitte l'icône bleue
+        menuIconBlue.addEventListener('mouseleave', function() {
+            // Ne masquer le header que si on n'est pas en train de le survoler lui-même
+            setTimeout(() => {
+                if (!header.matches(':hover')) {
+                    header.classList.remove('visible');
+                    menuIcon.style.display = 'block';
+                    menuIconBlue.style.display = 'none';
+                }
+            }, 200);
+        });
 
-    });
+        // Gérer le cas où le curseur passe du menu-icon au header
+        header.addEventListener('mouseleave', function() {
+            header.classList.remove('visible');
+            menuIcon.style.display = 'block';
+            menuIconBlue.style.display = 'none';
+        });
 
-    playButton.addEventListener('click', function()
-    {
+        header.addEventListener('mouseenter', function() {
+            header.classList.add('visible');
+            menuIcon.style.display = 'none';
+            menuIconBlue.style.display = 'block';
+        });
+    }
 
-        video.play();
-        videoContainer.classList.add('background');
-        setTimeout(function() {
-            content.classList.add('visible');
-        }, 500);
-        playButton.style.display = 'none';
+    if (logo) {
+        logo.addEventListener('click', function() {
+            video.muted = false;
+            video.play();
+            logo.classList.add('logo-growing');
 
-    });
+            setTimeout(function() {
+                logo.style.display = 'none';
+                content.classList.add('visible');
+                document.body.classList.add('scrollable');
+            }, 950);
+            menuIcon.style.display = 'block';
+        });
+    } else {
+        console.error('Logo element not found!');
+    }
 });

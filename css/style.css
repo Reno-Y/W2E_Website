@@ -4,25 +4,63 @@
     box-sizing: border-box;
 }
 
-body {
-    font-family: 'Arial', sans-serif;
-    height: 100vh;
-    overflow: hidden;
-    position: relative;
+header.visible {
+    left: 0; /* Afficher le menu */
+    opacity: 1;
 }
 
-#background-video, #play-button {
+nav a:hover {
+    color: #cccccc;
+}
+
+header.visible {
+    opacity: 1;
+}
+
+#play-button {
     display: none;
 }
 
+#background-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    opacity: 0.95;
+    display: block;
+}
+
 #logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(2);
+    z-index: 100;
     max-width: 200px;
     cursor: pointer;
     transition: transform 0.3s ease;
 }
 
 #logo:hover {
-    transform: scale(1.05);
+    transform: translate(-50%, -50%) scale(1.5);
+}
+
+@keyframes grow-and-fade {
+    0% {
+        transform: translate(-50%, -50%) scale(2);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(15);
+        opacity: 0;
+    }
+}
+
+.logo-growing {
+    animation: grow-and-fade 1s forwards;
 }
 
 #video-container {
@@ -31,31 +69,12 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 10;
-    background-color: rgba(244, 246, 247, 100);
+    z-index: -2; /* Sous la vidéo */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     transition: all 1s ease;
-}
-
-#video-container.background {
-    z-index: -1;
-    background-color: transparent;
-}
-
-#video-container video {
-    width: 80%;
-    max-height: 70vh;
-    transition: all 1s ease;
-}
-
-#video-container.background video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.5;
 }
 
 #content {
@@ -77,6 +96,7 @@ body {
 h1 {
     font-size: 3rem;
     margin-bottom: 20px;
+    font-family: 'Tabac Mono', sans-serif;
 }
 
 p {
@@ -85,37 +105,82 @@ p {
     margin-bottom: 20px;
 }
 
-@keyframes grow-and-fade {
-    0% {
-        transform: scale(1);
-        opacity: 1;
-    }
-    100% {
-        transform: scale(10);
-        opacity: 0;
-    }
+body {
+    font-family: 'Tabac Mono', sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    transition: overflow 0.1s ease;
 }
 
-.logo-growing {
-    animation: grow-and-fade 1s forwards;
+body.scrollable {
+    overflow: auto;
+    height: auto;
 }
 
-#background-video {
+
+
+#menu-icon {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    cursor: pointer;
+    font-size: 2rem;
+    color: white;
+    transform: scale(0.75);
+    display: none;
+}
+
+#menu-icon-blue {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    cursor: pointer;
+    font-size: 2rem;
+    color: white;
+    transform: scale(0.75);
+    display: none;
+}
+
+
+header {
     position: fixed;
     top: 0;
-    left: 0;
-    width: 100%;
+    left: -250px; /* Caché initialement sur la gauche */
     height: 100%;
-    object-fit: cover;
-    z-index: -1;
-    opacity: 0.5;
-    display: block;
+    width: 250px;
+    z-index: 10;
+    transition: left 0.5s ease;
+    background-color: rgba(0, 0, 0, 0.8); /* Fond sombre semi-transparent */
 }
 
-#logo {
-    position: relative;
-    z-index: 10;
-    max-width: 200px;
-    cursor: pointer;
-    transition: transform 0.3s ease;
+nav {
+    display: flex;
+    flex-direction: column; /* Orientation verticale */
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 80px 30px 20px; /* Espace en haut pour ne pas chevaucher l'icône */
+    height: 100%;
+    background-color: rgba(244, 246, 247, 100); /* Fond sombre semi-transparent */
 }
+
+nav a {
+    color: rgba(53,145,220, 100); /* Couleur des liens */
+    text-decoration: none;
+    margin: 15px 0; /* Espacement vertical entre les liens */
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+    width: 100%;
+}
+
+nav a:hover {
+    color: rgba(154,201,235, 100);
+}
+
+header.visible {
+    left: 0; /* Afficher le menu */
+    opacity: 1;
+}
+
