@@ -1,17 +1,27 @@
 document.addEventListener('DOMContentLoaded', function() {
+    const header = document.querySelector('header');
+    const footer = document.querySelector('footer');
     const video = document.getElementById('background-video');
     const content = document.getElementById('content');
     const logo = document.getElementById('logo');
-    const header = document.querySelector('header');
-    const menuIcon = document.getElementById('menu-icon');
-    const menuIconBlue = document.getElementById('menu-icon-blue');
-    const footer = document.querySelector('footer');
+    const logo_right = document.getElementById('logo-right');
+
+    // Sélection des icônes de menu (avec fallback pour différents ID)
+    const menuIcon = document.getElementById('menu-icon')
+    const menuIconBlue = document.getElementById('menu-icon-blue')
+
+    // Vérifier si nous sommes sur la page d'accueil ou une autre page
+    const isHomePage = !!logo;
 
 
-    video.pause();
-    video.loop = true;
+    // Si nous ne sommes pas sur la page d'accueil, rendre le body scrollable et le footer visible immédiatement
+    if (!isHomePage) {
+        document.body.classList.add('scrollable');
+        if (footer) footer.classList.add('visible');
+        if (menuIcon) menuIcon.style.display = 'block';
+    }
 
-    // Gestion de l'affichage du menu au survol
+    // Gestion du menu pour toutes les pages
     if (menuIcon && menuIconBlue) {
         // Afficher le menu et l'icône bleue au survol de l'icône blanche
         menuIcon.addEventListener('mouseenter', function() {
@@ -46,7 +56,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    if (logo) {
+    // Animation spécifique à la page d'accueil
+    if (isHomePage && video) {
+        video.pause();
+        video.loop = true;
+        logo_right.style.display = 'none'; // Cacher le logo droit au début
+
+
         logo.addEventListener('click', function() {
             video.muted = false;
             video.play();
@@ -57,35 +73,55 @@ document.addEventListener('DOMContentLoaded', function() {
                 content.classList.add('visible');
                 document.body.classList.add('scrollable');
                 menuIcon.style.display = 'block';
+                footer.classList.add('visible');
+                logo_right.style.display = 'block'; // Afficher le logo droit
             }, 950);
-
         });
-    } else {
-        console.error('Logo element not found!');
     }
 
+    // Création de l'overlay pour les images agrandies
+    const overlay = document.createElement('div');
+    overlay.className = 'overlay';
+    document.body.appendChild(overlay);
 
-    // Fonction qui vérifie si on est en bas de page
-    function checkScroll() {
-        // On calcule la position actuelle du scroll
-        let scrollPosition = window.innerHeight + window.scrollY;
-        // On calcule la hauteur totale de la page
-        let bodyHeight = document.body.offsetHeight;
+    // Ajout du bouton de fermeture
+    const closeBtn = document.createElement('div');
+    closeBtn.className = 'close-btn';
+    closeBtn.innerHTML = '&times;'; // Symbole X
+    overlay.appendChild(closeBtn);
 
-        // Si on est proche du bas (dans les 50 pixels du bas)
-        if (bodyHeight - scrollPosition < 50) {
-            footer.style.display = 'block';
-        } else {
-            footer.style.display = 'none';
+    // Image dans l'overlay
+    const overlayImg = document.createElement('img');
+    overlay.appendChild(overlayImg);
+
+    // Ajouter des événements click à toutes les images de la galerie
+    const galleryImages = document.querySelectorAll('.item img');
+
+    galleryImages.forEach(img => {
+        img.addEventListener('click', function() {
+            overlayImg.src = this.src;
+            overlay.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Empêcher le défilement
+        });
+    });
+
+    // Fermer l'overlay en cliquant sur le bouton X ou sur l'overlay
+    closeBtn.addEventListener('click', closeOverlay);
+    overlay.addEventListener('click', function(e) {
+        if (e.target === overlay) {
+            closeOverlay();
         }
+    });
+
+    // Fermer avec la touche Echap
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && overlay.style.display === 'flex') {
+            closeOverlay();
+        }
+    });
+
+    function closeOverlay() {
+        overlay.style.display = 'none';
+        document.body.style.overflow = 'auto'; // Réactiver le défilement
     }
-
-    // Masquer le footer initialement
-    footer.style.display = 'none';
-
-    // Écouter l'événement de défilement
-    window.addEventListener('scroll', checkScroll);
-
-    // Aussi vérifier lors du redimensionnement de la fenêtre
-    window.addEventListener('resize', checkScroll);
 });

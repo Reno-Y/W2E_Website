@@ -2,11 +2,21 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+
+}
+
+body{
+    background: rgba( 244, 246, 247, 100);
 }
 
 header.visible {
-    left: 0; /* Afficher le menu */
+    left: 0;
     opacity: 1;
+}
+
+a {
+
+    text-decoration-line: none;
 }
 
 nav a:hover {
@@ -18,7 +28,7 @@ header.visible {
 }
 
 #background-video {
-    position: absolute; /* Changer de fixed à absolute */
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
@@ -60,9 +70,9 @@ header.visible {
 }
 
 #video-container {
-    position: relative; /* Changer de fixed à relative */
+    position: relative;
     width: 100%;
-    height: 100vh; /* Hauteur de la fenêtre visible */
+    height: 100vh;
     z-index: 1;
     display: flex;
     flex-direction: column;
@@ -76,12 +86,9 @@ header.visible {
     z-index: 1;
     color: white;
     text-align: center;
-    padding: 20px;
-    max-width: 800px;
-    margin: 0 auto; /* Ajusté pour un meilleur alignement */
+    margin: 0 auto;
     opacity: 0;
     transition: opacity 1s ease;
-    background-color: #000; /* Fond pour le contenu */
 }
 
 #content.visible {
@@ -180,23 +187,180 @@ header.visible {
 }
 
 footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
+
     background-color: rgba(244, 246, 247, 100);
-    color: rgba(244, 246, 247, 100);
+    color: rgba(53, 145, 220, 100);
     text-align: center;
-    padding: 12px;
+    padding: 10px;
     z-index: 1000;
-    display: none;
+    opacity: 0;
+
+
 }
+
+footer.visible {
+    opacity: 1;
+}
+
 
 #group-photo-blue {
     object-fit : cover;
     width: 100%;
-    max-width: 800px;
-    margin: 40px auto;
+    margin: auto;
     display: block;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    box-shadow: 1px 4px 15px rgba(0,0,0,0.15);
+
+
+}
+
+#social-media {
+    transform: scale(0.75);
+    transition: transform 0.3s ease;
+
+}
+
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: minmax(250px, auto);
+    gap: 20px;
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.item {
+    overflow: hidden;
+    border-radius: 15px;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.item img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.3s ease;
+}
+
+/* Différentes tailles pour les items */
+.item:nth-child(1),
+.item:nth-child(5),
+.item:nth-child(7) {
+    grid-row: span 2; /* Prend 2 rangées */
+}
+
+.item:nth-child(2),
+.item:nth-child(8) {
+    grid-row: span 1; /* Taille standard */
+}
+
+.item:nth-child(3),
+.item:nth-child(6),
+.item:nth-child(9) {
+    grid-row: span 1; /* Taille standard */
+}
+
+.item:nth-child(4) {
+    grid-row: span 1; /* Plus petit */
+}
+
+.item img:hover {
+    transform: scale(1.5); /* Zoom léger au survol */
+}
+
+/* Overlay pour l'image agrandie */
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    animation: fadeIn 0.3s;
+}
+
+.overlay img {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    animation: scaleIn 0.3s;
+}
+
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 30px;
+    color: white;
+    cursor: pointer;
+    z-index: 2100;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+    from { transform: scale(0.8); }
+    to { transform: scale(1); }
+}
+
+/* Rendre les images cliquables */
+.item img {
+    cursor: pointer;
+}
+
+#page-header {
+    background-color: rgba(244, 246, 247, 100);
+    color: rgba(53, 145, 220, 100);
+    text-align: center;
+    padding: 20px;
+    font-size: 2rem;
+    font-family: 'Tabac Mono', sans-serif;
+    margin-top: 20px;
+    width: auto;
+    max-width: 94px;
+}
+
+#logo-blue {
+    position: static; /* Au lieu de absolute */
+    display: block;
+    max-width: 100px;
+    cursor: pointer;
+    margin: 15px 0; /* Même espacement que les liens */
+    transition: transform 0.3s ease;
+    transform: none; /* Enlever la transformation */
+}
+
+#logo-blue:hover {
+    transform: scale(1.1); /* Effet hover similaire aux liens */
+}
+
+#logo-right {
+    position: fixed;
+    top: 20px; /* Même hauteur que le menu-icon */
+    right: 75px; /* Même distance du bord que le menu-icon (qui est à gauche) */
+    z-index: 1000;
+    cursor: pointer;
+    max-width: 50px; /* Ajustez selon la taille souhaitée */
+    transition: transform 0.3s ease;
+    transform: scale(2.5); /* Réduire la taille par défaut */
+    display: block;
+}
+
+#logo-right:hover {
+    transform: scale(3);
 }
