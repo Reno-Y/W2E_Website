@@ -875,6 +875,88 @@ footer.visible {
     }
 }
 
+/* ---------- CONTRÔLES AUDIO ---------- */
+#audio-controls {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: var(--z-menu);
+    display: flex;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.15);
+    padding: 6px 10px;
+    border-radius: 20px;
+    backdrop-filter: blur(3px);
+    transition: opacity 0.3s ease;
+    opacity: 0.6;
+}
+
+#audio-controls:hover {
+    opacity: 1;
+}
+
+#mute-button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-right: 8px;
+    transition: transform var(--transition-fast);
+    opacity: 0.85;
+}
+
+#mute-button:hover {
+    transform: scale(1.1);
+    opacity: 1;
+}
+
+#volume-slider {
+    -webkit-appearance: none;
+    width: 60px;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 2px;
+    outline: none;
+}
+
+#volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 10px;
+    height: 10px;
+    background-color: white;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+#volume-slider::-moz-range-thumb {
+    width: 10px;
+    height: 10px;
+    background-color: white;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+}
+
+@media (max-width: 768px) {
+    #audio-controls {
+        top: 15px;
+        right: 15px;
+        padding: 5px 8px;
+    }
+
+    #mute-button {
+        font-size: 1rem;
+        margin-right: 6px;
+    }
+
+    #volume-slider {
+        width: 50px;
+        height: 2px;
+    }
+}
+
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 1200px) {
     .container,

@@ -4,11 +4,50 @@ document.addEventListener('DOMContentLoaded', function() {
     const video = document.getElementById('background-video');
     const content = document.getElementById('content');
     const logo = document.getElementById('logo');
-
+    const muteButton = document.getElementById('mute-button');
+    const volumeSlider = document.getElementById('volume-slider');
+    const soundOn = document.querySelector('.sound-on');
+    const soundOff = document.querySelector('.sound-off');
 
     // Sélection des icônes de menu (avec fallback pour différents ID)
     const menuIcon = document.getElementById('menu-icon')
     const menuIconBlue = document.getElementById('menu-icon-blue')
+
+    // Fonction pour gérer les contrôles audio
+    function setupAudioControls() {
+        if (video && muteButton && volumeSlider) {
+            // Définir le volume initial
+            video.volume = volumeSlider.value;
+
+            // Gérer le clic sur le bouton mute
+            muteButton.addEventListener('click', function() {
+                if (video.muted) {
+                    video.muted = false;
+                    soundOn.style.display = 'inline';
+                    soundOff.style.display = 'none';
+                } else {
+                    video.muted = true;
+                    soundOn.style.display = 'none';
+                    soundOff.style.display = 'inline';
+                }
+            });
+
+            // Gérer le changement de volume
+            volumeSlider.addEventListener('input', function() {
+                video.volume = this.value;
+                // Si le volume est à 0, on considère que c'est muet
+                if (parseFloat(this.value) === 0) {
+                    video.muted = true;
+                    soundOn.style.display = 'none';
+                    soundOff.style.display = 'inline';
+                } else if (video.muted) {
+                    video.muted = false;
+                    soundOn.style.display = 'inline';
+                    soundOff.style.display = 'none';
+                }
+            });
+        }
+    }
 
     // Vérifier si nous sommes sur la page d'accueil ou une autre page
     const isHomePage = !!logo;
@@ -191,5 +230,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
-});
 
+    // Initialiser les contrôles audio
+    setupAudioControls();
+});
