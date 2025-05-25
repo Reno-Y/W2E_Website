@@ -1,6 +1,6 @@
 # 🌊 Wave To Earth - Site Fan (Projet WEB EFREI P2)
 
-Bienvenue sur le dépôt Git du projet **Wave To Earth**, un site web fan réalisé dans le cadre du cours de Développement Web à l'EFREI Paris (P2, 2024-2025).
+Bienvenue sur le dépôt Git du projet **Wave To Earth**, un site web fan réalisé dans le cadre du cours de Développement Web à EFREI Paris.
 
 ## 🎯 Objectif
 
@@ -59,8 +59,6 @@ tickets.html → Réservation
 
 ## 🚀 Lancer le projet
 
-1. Clone ce dépôt :
-   ```bash
-   git clone https://github.com/Reno-Y/WaveToEarth.git
+1. Lancer index.html
 
 
