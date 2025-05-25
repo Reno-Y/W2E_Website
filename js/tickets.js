@@ -17,9 +17,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Prix des types de billets
     const ticketPrices = {
-        'standard': { 1: 45, 2: 40, 3: 42, 4: 47 }, // Prix standard par concert
-        'vip': { 1: 85, 2: 75, 3: 80, 4: 90 },      // Prix VIP
-        'early': { 1: 60, 2: 55, 3: 57, 4: 62 }     // Prix Early Entry
+        'standard': { 1: 44.99, 2: 39.99, 3: 42.99, 4: 47.99, 5: 39.99, 6: 29.99}, // Prix standard par concert
+        'vip': { 1: 84.99, 2: 74.99, 3: 80, 4: 89.99, 5 : 89.99,6 : 69.99},      // Prix VIP
+        'early': { 1: 59.99, 2: 54.99, 3: 57, 4: 62.99 ,5 : 69.99, 6:49.99}     // Prix Early Entry
     };
 
     // Données des concerts (correspondant aux data-concert-id)
@@ -27,7 +27,9 @@ document.addEventListener('DOMContentLoaded', function() {
         1: { date: '26 Juin 2025', location: 'Paris, France', venue: 'L\'Olympia' },
         2: { date: '29 Juin 2025', location: 'Lyon, France', venue: 'Le Transbordeur' },
         3: { date: '2 Juillet 2025', location: 'Marseille, France', venue: 'Le Dôme' },
-        4: { date: '5 Juillet 2025', location: 'Bruxelles, Belgique', venue: 'Ancienne Belgique' }
+        4: { date: '5 Juillet 2025', location: 'Bruxelles, Belgique', venue: 'Ancienne Belgique'},
+        5 : { date: '15 Août 2025', location : 'Tokyo, Japon', venue : 'Tokyo Dome City Hall' },
+        6 : {date: '22 Août 2025', location: 'Séoul, Corée du Sud', venue: 'Blue Square' }
     };
 
     // Étape 1: Sélection du concert
