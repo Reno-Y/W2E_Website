@@ -61,6 +61,6 @@ tickets.html → Réservation
 
 1. Clone ce dépôt :
    ```bash
-   git clone https://github.com/ton-pseudo/wave-to-earth-site.git
+   git clone https://github.com/Reno-Y/WaveToEarth.git
 
 
