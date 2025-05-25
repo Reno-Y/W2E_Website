@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const video = document.getElementById('background-video');
     const content = document.getElementById('content');
     const logo = document.getElementById('logo');
-    const logo_right = document.getElementById('logo-right');
+
 
     // Sélection des icônes de menu (avec fallback pour différents ID)
     const menuIcon = document.getElementById('menu-icon')
@@ -13,12 +13,77 @@ document.addEventListener('DOMContentLoaded', function() {
     // Vérifier si nous sommes sur la page d'accueil ou une autre page
     const isHomePage = !!logo;
 
-
     // Si nous ne sommes pas sur la page d'accueil, rendre le body scrollable et le footer visible immédiatement
     if (!isHomePage) {
         document.body.classList.add('scrollable');
         if (footer) footer.classList.add('visible');
         if (menuIcon) menuIcon.style.display = 'block';
+    }
+    // Si nous sommes sur la page d'accueil
+    else {
+        // Vérifier si c'est la première visite ou si l'utilisateur revient
+        const hasSeenAnimation = sessionStorage.getItem('animationPlayed') === 'true';
+
+        // Configuration de base pour la page d'accueil
+        if (video) {
+            video.pause();
+            video.loop = true;
+        }
+
+        // Définir l'état initial des éléments
+        if (content) content.style.display = 'none';
+        if (footer) footer.classList.remove('visible');
+
+        // Si l'utilisateur a déjà vu l'animation pendant cette session
+        if (hasSeenAnimation) {
+            // Aller directement au contenu
+            if (logo) logo.style.display = 'none';
+            if (content) {
+                content.style.display = 'block';
+                content.classList.add('visible');
+            }
+            if (video) {
+                video.muted = false;
+                video.play();
+            }
+            document.body.classList.add('scrollable');
+            if (menuIcon) menuIcon.style.display = 'block';
+            if (footer) footer.classList.add('visible');
+        }
+        // Si c'est la première visite
+        else {
+            // Afficher le logo et attendre le clic
+            if (logo) {
+                logo.style.display = 'block';
+
+                // Ajouter l'événement de clic pour l'animation du logo
+                logo.addEventListener('click', function() {
+                    // Jouer l'animation du logo
+                    this.classList.add('logo-growing');
+
+                    // Jouer la vidéo
+                    if (video) {
+                        video.muted = false;
+                        video.play();
+                    }
+
+                    // Après l'animation, afficher le contenu
+                    setTimeout(function() {
+                        if (logo) logo.style.display = 'none';
+                        if (content) {
+                            content.style.display = 'block';
+                            content.classList.add('visible');
+                        }
+                        document.body.classList.add('scrollable');
+                        if (menuIcon) menuIcon.style.display = 'block';
+                        if (footer) footer.classList.add('visible');
+
+                        // Marquer l'animation comme vue pour cette session
+                        sessionStorage.setItem('animationPlayed', 'true');
+                    }, 950);
+                });
+            }
+        }
     }
 
     // Gestion du menu pour toutes les pages
@@ -42,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 200);
         });
 
-        // Gérer le cas où le curseur passe du menu-icon au header
+        // Gérer le cas où le curseur passe du menu icon au header
         header.addEventListener('mouseleave', function() {
             header.classList.remove('visible');
             menuIcon.style.display = 'block';
@@ -56,29 +121,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Animation spécifique à la page d'accueil
-    if (isHomePage && video) {
-        video.pause();
-        video.loop = true;
-        logo_right.style.display = 'none'; // Cacher le logo droit au début
-
-
-        logo.addEventListener('click', function() {
-            video.muted = false;
-            video.play();
-            logo.classList.add('logo-growing');
-
-            setTimeout(function() {
-                logo.style.display = 'none';
-                content.classList.add('visible');
-                document.body.classList.add('scrollable');
-                menuIcon.style.display = 'block';
-                footer.classList.add('visible');
-                logo_right.style.display = 'block'; // Afficher le logo droit
-            }, 950);
-        });
-    }
-
+    // Gestion de la galerie d'images
     // Création de l'overlay pour les images agrandies
     const overlay = document.createElement('div');
     overlay.className = 'overlay';
@@ -124,4 +167,29 @@ document.addEventListener('DOMContentLoaded', function() {
         overlay.style.display = 'none';
         document.body.style.overflow = 'auto'; // Réactiver le défilement
     }
+
+    // Filtrage des images par catégorie dans la galerie
+    const categoryButtons = document.querySelectorAll('.category-btn');
+    const galleryItems = document.querySelectorAll('.gallery-container .item');
+
+    if (categoryButtons.length > 0 && galleryItems.length > 0) {
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Mise à jour de la classe active
+                categoryButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+
+                const category = this.getAttribute('data-category');
+
+                galleryItems.forEach(item => {
+                    if (category === 'all' || item.getAttribute('data-category') === category) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+    }
 });
+

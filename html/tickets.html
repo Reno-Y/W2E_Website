@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Billets de concert - Wave To Earth</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Réservez vos billets pour les concerts de Wave To Earth, groupe de dream pop et indie rock originaire de Séoul">
+    <meta name="keywords" content="wave to earth, billets, tickets, concerts, tournées, réservation">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/script.js" defer></script>
+    <script src="../js/tickets.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <img src="../assets/img/menu-icon.svg" alt="Menu" id="menu-icon">
+        <img src="../assets/img/menu-icon.svg" alt="Menu bleu" id="menu-icon-blue">
+
+        <nav id="main-nav">
+            <a href="../html/index.html">Accueil</a>
+            <a href="../html/gallery.html">Galerie</a>
+            <a href="../html/discography.html">Discographie</a>
+            <a href="../html/tickets.html">Billets</a>
+            <a href="../html/about.html">À propos</a>
+            <img src="../assets/img/logo_blue.png" alt="Logo" id="logo-blue">
+        </nav>
+    </header>
+
+    <div id="page-header">
+        <img src="../assets/img/logo_blue.png" alt="Logo" id="logo-right">
+    </div>
+
+    <main>
+        <div id="content-header">
+            <h1 id="content-title">Billets de concert</h1>
+            <p>Réservez vos places pour les prochains concerts de Wave To Earth</p>
+        </div>
+
+        <div class="tickets-container">
+            <div class="step-container" id="step1">
+                <h2>Étape 1: Sélectionner un concert</h2>
+                <div class="concerts-list">
+                    <!-- Concerts disponibles -->
+                    <div class="concert-card" data-concert-id="1">
+                        <div class="concert-date">26 Juin 2025</div>
+                        <div class="concert-location">Paris, France</div>
+                        <div class="concert-venue">L'Olympia</div>
+                        <div class="concert-price">À partir de 45€</div>
+                        <button class="select-concert-btn">Sélectionner</button>
+                    </div>
+
+                    <div class="concert-card" data-concert-id="2">
+                        <div class="concert-date">29 Juin 2025</div>
+                        <div class="concert-location">Lyon, France</div>
+                        <div class="concert-venue">Le Transbordeur</div>
+                        <div class="concert-price">À partir de 40€</div>
+                        <button class="select-concert-btn">Sélectionner</button>
+                    </div>
+
+                    <div class="concert-card" data-concert-id="3">
+                        <div class="concert-date">2 Juillet 2025</div>
+                        <div class="concert-location">Marseille, France</div>
+                        <div class="concert-venue">Le Dôme</div>
+                        <div class="concert-price">À partir de 42€</div>
+                        <button class="select-concert-btn">Sélectionner</button>
+                    </div>
+
+                    <div class="concert-card" data-concert-id="4">
+                        <div class="concert-date">5 Juillet 2025</div>
+                        <div class="concert-location">Bruxelles, Belgique</div>
+                        <div class="concert-venue">Ancienne Belgique</div>
+                        <div class="concert-price">À partir de 47€</div>
+                        <button class="select-concert-btn">Sélectionner</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-container hidden" id="step2">
+                <h2>Étape 2: Informations personnelles</h2>
+                <div class="form-container">
+                    <form id="ticket-form">
+                        <div class="form-group">
+                            <label for="firstname">Prénom</label>
+                            <input type="text" id="firstname" name="firstname" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="lastname">Nom</label>
+                            <input type="text" id="lastname" name="lastname" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Téléphone</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ticket-quantity">Nombre de billets</label>
+                            <select id="ticket-quantity" name="quantity" required>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ticket-type">Type de billet</label>
+                            <select id="ticket-type" name="ticket-type" required>
+                                <option value="standard">Standard</option>
+                                <option value="vip">VIP (accès backstage)</option>
+                                <option value="early">Early Entry</option>
+                            </select>
+                        </div>
+
+                        <div class="form-nav">
+                            <button type="button" id="back-to-step1" class="back-btn">Retour</button>
+                            <button type="button" id="go-to-step3" class="next-btn">Continuer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="step-container hidden" id="step3">
+                <h2>Étape 3: Paiement</h2>
+
+                <div class="payment-summary">
+                    <h3>Récapitulatif de votre commande</h3>
+                    <div id="concert-summary"></div>
+                    <div id="ticket-summary"></div>
+                    <div id="total-price"></div>
+                </div>
+
+                <div class="payment-form">
+                    <form id="payment-form">
+                        <div class="form-group">
+                            <label for="card-holder">Titulaire de la carte</label>
+                            <input type="text" id="card-holder" name="card-holder" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="card-number">Numéro de carte</label>
+                            <input type="text" id="card-number" name="card-number" placeholder="XXXX XXXX XXXX XXXX" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group half">
+                                <label for="expiry-date">Date d'expiration</label>
+                                <input type="text" id="expiry-date" name="expiry-date" placeholder="MM/AA" required>
+                            </div>
+                            <div class="form-group half">
+                                <label for="cvv">CVV</label>
+                                <input type="text" id="cvv" name="cvv" placeholder="XXX" required>
+                            </div>
+                        </div>
+
+                        <div class="form-nav">
+                            <button type="button" id="back-to-step2" class="back-btn">Retour</button>
+                            <button type="submit" id="confirm-payment" class="submit-btn">Confirmer le paiement</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="step-container hidden" id="confirmation">
+                <div class="confirmation-content">
+                    <h2>Réservation confirmée !</h2>
+                    <div class="confirmation-icon">✓</div>
+                    <p>Merci pour votre achat. Vous recevrez un email de confirmation avec vos billets électroniques.</p>
+                    <div id="confirmation-details"></div>
+                    <button id="back-to-home" class="home-btn">Retour à l'accueil</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div id="social-media">
+            <a href="https://www.instagram.com/wave_to_earth/" target="_blank">
+                <img src="../assets/img/instagram.svg" alt="Instagram">
+            </a>
+            <a href="https://www.facebook.com/wavetoearth" target="_blank">
+                <img src="../assets/img/facebook.svg" alt="Facebook">
+            </a>
+            <a href="https://www.youtube.com/@wavetoearth" target="_blank">
+                <img src="../assets/img/youtube.svg" alt="YouTube">
+            </a>
+        </div>
+        <div id="footer-text">
+            <p>&copy; 2025 Wave To Earth. Tous droits réservés.</p>
+        </div>
+    </footer>
+</body>
+</html>
