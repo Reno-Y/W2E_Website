@@ -650,6 +650,8 @@ footer.visible {
     margin-top: var(--spacing-md);
 }
 
+
+
 /* ---------- PAGE TICKETS ---------- */
 .tickets-content {
     padding-top: 50px;
@@ -1251,3 +1253,4 @@ footer.visible {
         font-size: 0.8rem;
     }
 }
+

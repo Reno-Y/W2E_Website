@@ -40,7 +40,6 @@ Ce site web a pour but de faire découvrir l’univers musical, visuel et artist
 style.css → Styles globaux
 /js
 script.js → Navigation, animations, interactivité
-tickets.js → Logique de réservation de billets
 /html
 index.html → Page d’accueil
 about.html → À propos
